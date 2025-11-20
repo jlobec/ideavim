@@ -1,0 +1,293 @@
+
+" ============================================
+" IdeaVim configuration
+" ============================================
+" Documentation:
+"   https://jb.gg/h38q75
+" Available plugins:
+"   https://jb.gg/ideavim-plugins
+
+" IMPORTANT:
+" Required IntelliJ Plugins:
+"   - IdeaVim
+"   - Relative Line Numbers
+"   - IdeaVim-EasyMotion
+"   - AceJump
+" Required IntelliJ configuration:
+"   - Enable Absolute numbers in Line Numbers configuration.
+
+" ============================================
+" Basic editor behavior
+" ============================================
+
+" Keep some lines of context visible when moving the cursor
+set scrolloff=5
+
+" Incremental search highlights matches while typing
+set incsearch
+
+" Disable Ex mode; Q now formats text (standard Vim)
+map Q gq
+
+
+" ============================================
+" Plugins
+" ============================================
+
+" Highlight text after yanking
+Plug 'machakann/vim-highlightedyank'
+
+" Comment and uncomment with 'gc'
+Plug 'tpope/vim-commentary'
+
+" Surround plugin: add/change/delete delimiters ('ysiw"', 'cs)"', etc.)
+Plug 'tpope/vim-surround'
+
+" Makes '.' repeat plugin commands (like surround and commentary)
+Plug 'tpope/vim-repeat'
+
+" Enhanced matching for %, text objects, and syntax-aware pairs
+" Works with parentheses, brackets, braces, quotes, HTML tags, etc.
+Plug 'andymass/vim-matchup'
+
+" EasyMotion plugin for lightning-fast navigation
+"Plug 'easymotion/vim-easymotion'
+
+" Enable Matchup features
+let g:matchup_matchparen_enabled = 1
+let g:matchup_transmute_enabled = 1
+
+" Highlight matching pair under cursor
+let g:matchup_matchparen_hi_surround_always = 1
+
+" Enable offscreen match info (shows where the other pair is)
+let g:matchup_matchparen_offscreen = {'method': 'popup'}
+
+
+
+" ============================================
+" Essential ergonomic improvements
+" ============================================
+
+" Set leader key to Space. The most ergonomic choice.
+let mapleader = " "
+
+" --- Insert mode: jk -> Escape ---
+" Return to Normal mode without leaving the home row
+inoremap jk <Esc>
+
+" --- Keep cursor centered when scrolling ---
+nnoremap <C-d> <C-d>zz
+nnoremap <C-u> <C-u>zz
+
+nnoremap <C-o> <C-o>zz
+nnoremap <C-i> <C-i>zz
+
+" --- Keep cursor centered when searching ---
+nnoremap n nzzzv
+nnoremap N Nzzzv
+
+" --- More readable join behavior ---
+" (Keeps cursor position after J)
+nnoremap J mzJ`z
+
+" --- Make Y consistent with C and D ---
+" Yanks to the end of the line (y$) instead of the whole line
+nnoremap Y y$
+
+" --- Fast window (split) navigation ---
+" Use Ctrl + h/j/k/l to move between editor splits
+nnoremap <C-h> <C-w>h
+nnoremap <C-j> <C-w>j
+nnoremap <C-k> <C-w>k
+nnoremap <C-l> <C-w>l
+
+" --- Keep Visual selection after indenting ---
+" Allows repeating > or < on the same block
+vnoremap < <gv
+vnoremap > >gv
+
+" ============================================
+" Quality-of-life settings
+" ============================================
+
+" Show relative line numbers (e.g., '5j' to move down 5 lines)
+" set relativenumber
+
+" Keep search results highlighted until next search
+set hlsearch
+" Search settings
+set ignorecase     " Case-insensitive by default
+set smartcase      " Case-sensitive if search contains uppercase letters
+
+" Clear search highlight easily
+" Press to remove highlights
+nnoremap <C-C> :nohlsearch<CR>
+
+
+" ============================================
+" EasyMotion
+" ============================================
+"set easymotion
+
+"let g:easymotion_do_mapping = 0
+
+" Jump to any 2-character sequence (bidirectional) (Space + s)
+"map <Leader>s <Plug>(easymotion-s)
+
+" Jump to the beginning of any word (forward) (Space + w)
+"map <Leader>w <Plug>(easymotion-w)
+
+" Jump to any line BELOW the cursor (Space + j)
+"map <Leader>j <Plug>(easymotion-j)
+
+" Jump to any line ABOVE the cursor (Space + k)
+"map <Leader>k <Plug>(easymotion-k)
+
+" Jump to the END of any word (forward) (Space + e)
+"map <Leader>e <Plug>(easymotion-e)
+
+" Jump to the beginning of any word (backward) (Space + B)
+"map <Leader>b <Plug>(easymotion-b)
+
+" Jump to the END of any word (backward) (Space + ge)
+" map <Leader>ge <Plug>(easymotion-ge) " Overridden without increasing the timeout
+
+" Jump to the beginning of any word (backward) (Space + gb)
+" map <Leader>gb <Plug>(easymotion-b) " Overridden without increasing the timeout
+
+" --- EasyMotion: Saltos de "WORD" (ignora puntuación) ---
+
+" Jump to the beginning of any WORD (forward) (Space + W)
+"map <Leader>W <Plug>(easymotion-W)
+
+" Jump to the beginning of any WORD (backward) (Space + B)
+"map <Leader>B <Plug>(easymotion-B)
+
+" Jump to the END of any WORD (forward) (Space + E)
+"map <Leader>E <Plug>(easymotion-E)
+
+" Jump to the END of any WORD (backward) (Space + gE)
+" map <Leader>gE <Plug>(easymotion-gE) " Overridden without increasing the timeout
+
+
+" ============================================
+" IdeaVim IDE Actions Mappings
+" ============================================
+" All mappings use <Leader> for ergonomics
+
+" Navigation history
+" map <Leader>o <Action>(Back)
+" map <Leader>i <Action>(Forward)
+
+" Method nav
+map <Leader>[ <Action>(MethodUp)
+map <Leader>] <Action>(MethodDown)
+
+" Tabs
+"map <Leader>h <Action>(PreviousTab)
+"map <Leader>l <Action>(NextTab)
+map <S-h> <Action>(PreviousTab)
+map <S-l> <Action>(NextTab)
+
+" Reformat code (Space + r)
+"map <Leader>r <Action>(ReformatCode)
+map <Leader>cf <Action>(ReformatCode)
+
+" Toggle breakpoint (Space + b)
+map \b <Action>(ToggleLineBreakpoint)
+
+" Start/Continue debugging (Space + d)
+map <Leader>d <Action>(Debug)
+
+" Run current configuration / file (Space + f)
+map <Leader>f <Action>(Run)
+
+" Find any IDE action (Space + a)
+map <Leader>a <Action>(FindAction)
+
+" Find in path (Space + /) - Mnemonic: global search
+map <Leader>/ <Action>(FindInPath)
+
+" Replace in path (Space + R)
+map <Leader>R <Action>(ReplaceInPath)
+
+" Find file (Space + o)
+map <Leader><Leader> <Action>(GotoFile)
+
+" Find symbol (Space + g)
+map <Leader>g <Action>(GotoSymbol)
+
+" Rename element (Space + r)
+map <Leader>r <Action>(RenameElement)
+
+" Comment/uncomment line (Space + c)
+map <Leader>c <Action>(CommentByLineComment)
+
+" Recent files
+map \e <Action>(RecentFiles)
+
+" File structure
+map \s <Action>(FileStructurePopup)
+
+" Go to class/type
+map \t <Action>(GotoClass)
+
+" Test <-> implementation
+map \u <Action>(GotoTest)
+
+
+
+" --- Multicursor ---
+
+" Add selection for next occurrence (Space + m)
+map <Leader>m <Action>(SelectNextOccurrence)
+
+" Select all occurrences (Space + M)
+map <Leader>M <Action>(SelectAllOccurrences)
+
+" --- Tool Window Management ---
+
+" Toggle Project view (Space + fp)
+map <Leader>fp <Action>(ProjectView)
+
+" Toggle Terminal view
+map <C-t> <Action>(ActivateTerminalToolWindow)
+
+" Hide all tool windows (Space + h) - Mnemonic: Hide
+map <Leader>H <Action>(HideAllWindows)
+
+" Split Vertically (Right) - uses the pipe character |
+map sv <Action>(SplitVertically)
+
+" Split Horizontally (Down) - uses the hyphen -
+map ss <Action>(SplitHorizontally)
+
+" Delete Buffer and Window
+map <leader>bd <Action>(CloseContent)
+
+" --- Standard Vim/IDE mappings (do not need a leader) ---
+
+" Next error / warning
+map ]q <Action>(NextError)
+
+" Previous error / warning
+map [q <Action>(PrevError)
+
+" Go to declaration
+map gd <Action>(GotoDeclaration)
+
+" Go to implementation
+map gi <Action>(GotoImplementation)
+
+" Optimize imports
+map <Leader>co <Action>(OptimizeImports)
+
+" Show usages
+map gr <Action>(ShowUsages)
+
+" -- System clipboard (yank + paste)
+nnoremap <Leader>y "+y
+vnoremap <Leader>y "+y
+nnoremap <Leader>p "+p
+vnoremap <Leader>p "+p
