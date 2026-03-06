@@ -75,6 +75,7 @@ let mapleader = " "
 " --- Insert mode: jk -> Escape ---
 " Return to Normal mode without leaving the home row
 inoremap jk <Esc>
+"vnoremap jk <Esc>
 
 " --- Keep cursor centered when scrolling ---
 nnoremap <C-d> <C-d>zz
@@ -106,6 +107,9 @@ nnoremap <C-l> <C-w>l
 " Allows repeating > or < on the same block
 vnoremap < <gv
 vnoremap > >gv
+
+" -- Paste over visual selection without overwriting the register
+vnoremap p "_dP
 
 " ============================================
 " Quality-of-life settings
